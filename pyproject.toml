@@ -1,7 +1,7 @@
 [project]
 name = "papillon"
 version = "0.1.0"
-description = "Add your description here"
+description = "TBD"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [

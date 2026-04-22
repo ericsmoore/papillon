@@ -77,8 +77,10 @@ def typewrite(text, x, y, delay=0.05, col=''):
                     time.sleep(delay)
 
 
-def fade(text, x, y, delay=0.25):
-    shades = [t.gray10, t.gray20, t.gray30, t.gray50, t.gray70, t.normal]
+def fade(text, x, y, delay=0.25, step = 10, max = 70):
+    shades = []
+    for i in range(0, max, step):
+        shades.append(getattr(t, f"gray{i}"))
     lines = text.splitlines()
     for s in shades:
         for line in range(len(lines)):
@@ -95,7 +97,7 @@ def clear_canvas():
 
 def load_assets():
     parts = re.split(
-        r'^\[(\w+)\]$', open('assets.txt').read(), flags=re.MULTILINE
+        r'^\[(\w+)\]$', open('scenes/assets.txt').read(), flags=re.MULTILINE
     )
     return {
         parts[i]: parts[i + 1].strip('\n') for i in range(1, len(parts) - 1, 2)

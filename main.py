@@ -1,24 +1,25 @@
-import core
+import engine
 from scenes import scenes
 
 
 def main():
-    core.a = core.load_assets()
+    engine.a = engine.load_assets()
     with (
-        core.t.cbreak(),
-        core.t.hidden_cursor(),
-        core.t.fullscreen(),
-        core.t.window_title('papillon'),
+        engine.t.cbreak(),
+        engine.t.hidden_cursor(),
+        engine.t.fullscreen(),
+        engine.t.window_title('papillon'),
     ):
-        core.initialize()
+        engine.initialize()
 
         scene = 'intro'
         while True:
             scene = scenes[scene]()
             if not scene:
-                core.time.sleep(0.5)
+                engine.clear_canvas()
+                engine.time.sleep(0.5)
                 break
-            core.clear_canvas()
+            engine.clear_canvas()
 
 
 if __name__ == '__main__':

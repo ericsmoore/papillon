@@ -1,12 +1,11 @@
 import re
 import signal
 import time
-
 from blessed import Terminal
 
 t = Terminal()
 c = None  # Canvas
-a = None  # Assets
+assets = None  # Assets
 
 W, H = 96, 32
 
@@ -77,10 +76,10 @@ def typewrite(text, x, y, delay=0.05, col=''):
                     time.sleep(delay)
 
 
-def fade(text, x, y, delay=0.25, step = 10, max = 70):
+def fade(text, x, y, delay=0.25, step=10, max=70):
     shades = []
-    for i in range(0, max, step):
-        shades.append(getattr(t, f"gray{i}"))
+    for i in range(10, max, step):
+        shades.append(getattr(t, f'gray{i}'))
     lines = text.splitlines()
     for s in shades:
         for line in range(len(lines)):
@@ -105,8 +104,9 @@ def load_assets():
 
 
 def initialize():
+    global c, assets
     check_size()
-    global c
     c = Canvas((t.width - W) // 2 + 1, (t.height - H) // 2 + 1)
+    assets = load_assets()
     print(t.clear + t.home)
     draw_border()

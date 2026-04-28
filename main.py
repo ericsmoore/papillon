@@ -1,20 +1,23 @@
 import time
-import engine as en
+from engine import Engine
+from blessed import Terminal
 from scenes import scenes
 
 
 def main():
-    with (
-        en.t.cbreak(),
-        en.t.hidden_cursor(),
-        en.t.fullscreen(),
-        en.t.window_title('papillon'),
-    ):
-        en.initialize()
+    t = Terminal()
 
-        scene = 'intro'
+    with (
+        t.cbreak(),
+        t.hidden_cursor(),
+        t.fullscreen(),
+        t.window_title('papillon'),
+    ):
+        en = Engine(t)
+
+        scene = '00start'
         while True:
-            scene = scenes[scene]()
+            scene = scenes[scene](en)
             if not scene:
                 en.clear_canvas()
                 time.sleep(0.5)

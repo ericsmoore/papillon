@@ -1,11 +1,6 @@
-import re
 import signal
 import time
-from blessed import Terminal
-
-t = Terminal()
-c = None  # Canvas
-assets = None  # Assets
+from pathlib import Path
 
 W, H = 96, 32
 
@@ -23,90 +18,108 @@ class Canvas:
         return self.x + cx, self.y + cy
 
 
-def check_size():
-    min_h = H + 2
-    min_w = W + 4
+class Engine:
+    def check_size(self):
+        t = self.t
+        min_h = H + 2
+        min_w = W + 4
 
-    print(f'\033[8;{min_h};{min_w}t')  # auto-resizes (some emulators)
-    time.sleep(0.25)
+        print(f'\033[8;{min_h};{min_w}t')  # auto-resizes (some emulators)
+        time.sleep(0.25)
 
-    if t.height >= min_h and t.width >= min_w:
-        return
+        if t.height >= min_h and t.width >= min_w:
+            return
 
-    print('Please resize to 100x34')
+        print('Please resize to 100x34')
 
-    resized = False
+        resized = False
 
-    def on_resize(*args):
-        nonlocal resized
-        resized = True
+        def on_resize(*args):
+            nonlocal resized
+            resized = True
 
-    signal.signal(signal.SIGWINCH, on_resize)
+        signal.signal(signal.SIGWINCH, on_resize)
 
-    with t.cbreak():
-        while True:
-            if resized:
-                resized = False
-                if t.height >= min_h and t.width >= min_w:
-                    return
-            t.inkey(timeout=0.1)
+        with t.cbreak():
+            while True:
+                if resized:
+                    resized = False
+                    if t.height >= min_h and t.width >= min_w:
+                        return
+                t.inkey(timeout=0.1)
 
+    def draw_border(self):
+        t = self.t
+        c = self.c
 
-def draw_border():
-    print(t.home())
+        print(t.home() + t.gray40)
 
-    top = '┌' + (c.w) * '─' + '┐'
-    bottom = '└' + (c.w) * '─' + '┘'
-    middle = '│' + (c.w) * ' ' + '│'
+        top = '┌' + (c.w) * '─' + '┐'
+        bottom = '└' + (c.w) * '─' + '┘'
+        middle = '│' + (c.w) * ' ' + '│'
 
-    print(t.move_xy(c.x - 1, c.y - 1) + top)
-    for i in range(c.h):
-        print(t.move_xy(c.x - 1, c.y + i) + middle)
-    print(t.move_xy(c.x - 1, c.y + c.h) + bottom, end='', flush=True)
+        print(t.move_xy(c.x - 1, c.y - 1) + top)
+        for i in range(c.h):
+            print(t.move_xy(c.x - 1, c.y + i) + middle)
+        print(t.move_xy(c.x - 1, c.y + c.h) + bottom, end='', flush=True)
+        print(t.normal)
 
+    def typewrite(self, text, x, y, delay=0.05, col=None):
+        t = self.t
+        col = col or t.gray80
 
-def typewrite(text, x, y, delay=0.05, col=''):
-    lines = text.splitlines()
-    for line in range(len(lines)):
-        with t.location(x, y + line):
-            print(col, end='', flush=True)
-            for ch in lines[line]:
-                print(ch, end='', flush=True)
-                if not ch.isspace():
-                    time.sleep(delay)
-
-
-def fade(text, x, y, delay=0.25, step=10, max=70):
-    shades = []
-    for i in range(10, max, step):
-        shades.append(getattr(t, f'gray{i}'))
-    lines = text.splitlines()
-    for s in shades:
+        lines = text.splitlines()
         for line in range(len(lines)):
             with t.location(x, y + line):
-                print(s + lines[line], end='', flush=True)
-        time.sleep(delay)
+                print(col, end='', flush=True)
+                for ch in lines[line]:
+                    print(ch, end='', flush=True)
+                    if not ch.isspace():
+                        time.sleep(delay)
 
+    def fade(self, text, x, y, delay=0.25, step=10, max=80):
+        t = self.t
+        shades = []
+        for i in range(10, max, step):
+            shades.append(getattr(t, f'gray{i}'))
 
-def clear_canvas():
-    for r in range(c.h):
-        with t.location(c.x, c.y + r):
-            print(' ' * c.w, end='', flush=True)
+        lines = text.splitlines()
+        for s in shades:
+            for line in range(len(lines)):
+                with t.location(x, y + line):
+                    print(s + lines[line], end='', flush=True)
+            time.sleep(delay)
 
+    def clear_canvas(self):
+        c = self.c
+        t = self.t
 
-def load_assets():
-    parts = re.split(
-        r'^\[(\w+)\]$', open('scenes/assets.txt').read(), flags=re.MULTILINE
-    )
-    return {
-        parts[i]: parts[i + 1].strip('\n') for i in range(1, len(parts) - 1, 2)
-    }
+        for r in range(c.h):
+            with t.location(c.x, c.y + r):
+                print(' ' * c.w, end='', flush=True)
 
+    def load_assets(self):
+        # with open('scenes/assets.txt') as f:
+        #     parts = re.split(r'^\[(\w+)\]$', f.read(), flags=re.MULTILINE)
+        # return {
+        #     parts[i]: parts[i + 1].strip('\n')
+        #     for i in range(1, len(parts) - 1, 2)
+        # }
+            
+        assets = {
+            p.stem: p.read_text()
+            for p in Path('scenes/assets').glob('*.txt')
+        }    
 
-def initialize():
-    global c, assets
-    check_size()
-    c = Canvas((t.width - W) // 2 + 1, (t.height - H) // 2 + 1)
-    assets = load_assets()
-    print(t.clear + t.home)
-    draw_border()
+        return assets
+        
+
+    def __init__(self, term):
+        self.t = term
+        self.check_size()
+        self.c = Canvas(
+            (self.t.width - W) // 2 + 1, (self.t.height - H) // 2 + 1
+        )
+        self.assets = self.load_assets()
+        print(self.t.clear + self.t.home)
+        self.draw_border()

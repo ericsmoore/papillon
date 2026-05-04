@@ -1,7 +1,7 @@
+from engine import Engine
 import time
 
-
-def scene(en):
+def scene(en: Engine):
     time.sleep(1)
     x, y = en.c.coords(en.c.w - 30, 0)
     en.fade(en.assets['trail_1'], x, y, 0.15, 5, 40)

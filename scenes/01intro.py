@@ -1,7 +1,8 @@
+from engine import Engine
 import time
 
 
-def scene(en):
+def scene(en: Engine):
     time.sleep(2)
 
     x, y = en.c.coords(22, 9)

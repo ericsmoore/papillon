@@ -1,6 +1,7 @@
 from engine import Engine
 import time
 
+
 def scene(en: Engine):
     time.sleep(1)
     x, y = en.c.coords(en.c.w - 30, 0)
@@ -28,12 +29,12 @@ def scene(en: Engine):
         return i * (en.c.w // 3) - len(o) // 2
 
     c1 = en.c.coords(x(opts[0], 1), y)
-    en.typewrite(opts[0], c1[0], c1[1], 0.05, en.t.gray40)
+    en.typewrite(opts[0], c1[0], c1[1], 0.05, en.t.italic_gray30)
 
     time.sleep(0.5)
 
     c2 = en.c.coords(x(opts[1], 2), y)
-    en.typewrite(opts[1], c2[0], c2[1], 0.05, en.t.gray40)
+    en.typewrite(opts[1], c2[0], c2[1], 0.05, en.t.italic_gray30)
 
     while True:
         key = en.t.inkey().lower()

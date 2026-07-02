@@ -27,7 +27,7 @@ class Engine:
         print(f'\033[8;{min_h};{min_w}t')  # auto-resizes (some emulators)
         time.sleep(0.25)
 
-        if t.height >= min_h and t.width >= min_w:
+        if (t.height >= min_h and t.width >= min_w):
             return
 
         print('Please resize to 100x34')
@@ -77,10 +77,10 @@ class Engine:
                     if not ch.isspace():
                         time.sleep(delay)
 
-    def fade(self, text, x, y, delay=0.25, step=10, max=80):
+    def fade(self, text, x, y, delay=0.25, step=10, min=10, max=80):
         t = self.t
         shades = []
-        for i in range(10, max, step):
+        for i in range(min, max, step):
             shades.append(getattr(t, f'gray{i}'))
 
         lines = text.splitlines()

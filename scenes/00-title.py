@@ -25,15 +25,15 @@ def scene(en: Engine):
 
     y = 2 * en.c.h // 3
 
-    def x(o, i):
+    def xpos(o, i):
         return i * (en.c.w // 3) - len(o) // 2
 
-    c1 = en.c.coords(x(opts[0], 1), y)
+    c1 = en.c.coords(xpos(opts[0], 1), y)
     en.typewrite(opts[0], c1[0], c1[1], 0.05, en.t.italic_gray30)
 
     time.sleep(0.5)
 
-    c2 = en.c.coords(x(opts[1], 2), y)
+    c2 = en.c.coords(xpos(opts[1], 2), y)
     en.typewrite(opts[1], c2[0], c2[1], 0.05, en.t.italic_gray30)
 
     while True:
@@ -41,4 +41,4 @@ def scene(en: Engine):
         if key == 'q':
             return None
         if key == 'e':
-            return '01intro'
+            return '01-epigraph'

@@ -27,9 +27,9 @@ def scene(en: Engine):
     x, y = en.c.coords(en.c.w // 2 - len(opt) // 2, en.c.h - 4)
     en.typewrite(opt, x, y, 0.05, en.t.italic_gray30)
 
-    while True:
+    while (True):
         key = en.t.inkey().lower()
         if key == 'q':
             return None
         else:
-            return '02'
+            return '02-wake'

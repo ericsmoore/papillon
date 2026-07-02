@@ -10,4 +10,5 @@ wheels/
 .venv
 
 # -----
+scratch.txt
 .DS_Store

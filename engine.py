@@ -108,7 +108,7 @@ class Engine:
             
         assets = {
             p.stem: p.read_text()
-            for p in Path('scenes/assets').glob('*.txt')
+            for p in Path('scenes/assets').rglob('*.txt')
         }    
 
         return assets

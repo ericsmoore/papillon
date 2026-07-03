@@ -1,5 +1,7 @@
 import signal
 import time
+import termios
+import sys
 from pathlib import Path
 
 W, H = 96, 32
@@ -97,6 +99,15 @@ class Engine:
         for r in range(c.h):
             with t.location(c.x, c.y + r):
                 print(' ' * c.w, end='', flush=True)
+
+    def clear_input(self):
+        try:
+            termios.tcflush(sys.stdin, termios.TCIFLUSH)
+        except termios.error:
+            pass
+        with self.t.cbreak():
+            while self.t.inkey(timeout=0):
+                pass
 
     def load_assets(self):
         # with open('scenes/assets.txt') as f:

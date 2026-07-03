@@ -19,7 +19,7 @@ def scene(en: Engine):
     en.typewrite(
         en.assets['title'], en.c.cx - 21 // 2 - 1, en.c.y + en.c.h // 3, 0.075
     )
-    time.sleep(1)
+    time.sleep(2)
 
     opts = ['ENTER - E', 'QUIT - Q']
 

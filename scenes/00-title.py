@@ -5,15 +5,15 @@ import time
 def scene(en: Engine):
     time.sleep(1)
     x, y = en.c.coords(en.c.w - 30, 0)
-    en.fade(en.assets['trail_1'], x, y, 0.15, 5, 40)
+    en.fade(en.assets['trail_1'], x, y, 0.15, 5, 10, 40)
 
     x, y = en.c.coords(82, 26)
-    en.fade(en.assets['trail_2'], x, y, 0.15, 5, 50)
+    en.fade(en.assets['trail_2'], x, y, 0.15, 5, 10, 50)
 
     x, y = en.c.coords(0, en.c.h - 8)
-    en.fade(en.assets['trail_3'], x, y, 0.1, 5, 60)
+    en.fade(en.assets['trail_3'], x, y, 0.1, 5, 10, 60)
 
-    en.fade(en.assets['butterfly'], en.c.x, en.c.y, 0.1, 5, 70)
+    en.fade(en.assets['butterfly'], en.c.x, en.c.y, 0.1, 5, 10, 70)
     time.sleep(1)
 
     en.typewrite(
@@ -36,6 +36,7 @@ def scene(en: Engine):
     c2 = en.c.coords(xpos(opts[1], 2), y)
     en.typewrite(opts[1], c2[0], c2[1], 0.05, en.t.italic_gray30)
 
+    en.clear_input()
     while True:
         key = en.t.inkey().lower()
         if key == 'q':

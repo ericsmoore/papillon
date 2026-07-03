@@ -37,4 +37,4 @@ def scene(en: Engine):
         if key == 'q':
             return None
         else:
-            return '02-wake'
+            return '02-dawn'

@@ -3,7 +3,7 @@ import time
 
 
 def scene(en: Engine):
-    time.sleep(2)
+    time.sleep(3)
 
     x, y = en.c.coords(22, 7)
 

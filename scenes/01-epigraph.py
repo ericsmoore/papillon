@@ -22,9 +22,13 @@ def scene(en: Engine):
 
     time.sleep(1.5)
 
+    ellip = '. . .'
     opt = 'PRESS ANY KEY'
 
-    x, y = en.c.coords(en.c.w // 2 - len(opt) // 2, en.c.h - 4)
+    x, y = en.c.coords(en.c.w // 2 - len(ellip) // 2, en.c.h - 2)
+    en.typewrite(ellip, x, y, 0.05, en.t.italic_gray30)
+    time.sleep(2)
+    x, y = en.c.coords(en.c.w // 2 - len(opt) // 2, en.c.h - 3)
     en.typewrite(opt, x, y, 0.05, en.t.italic_gray30)
 
     en.clear_input()

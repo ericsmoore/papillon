@@ -76,7 +76,9 @@ class Engine:
                 print(col, end='', flush=True)
                 for ch in lines[line]:
                     print(ch, end='', flush=True)
-                    if not ch.isspace():
+                    if ch in ',.?!:;':
+                        time.sleep(delay*2.5)
+                    elif not ch.isspace():
                         time.sleep(delay)
 
     def fade(self, text, x, y, delay=0.25, step=10, min=10, max=80):

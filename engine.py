@@ -50,6 +50,15 @@ class Engine:
                         return
                 t.inkey(timeout=0.1)
 
+    def set_theme(self, fg, bg):
+        self.default = getattr(self.t, f'{fg}_on_{bg}')
+        self.fg = getattr(self.t, fg)
+        self.bg = getattr(self.t, bg)
+        print(self.t.clear + self.t.home + self.default)
+        for row in range(self.t.height):
+            with self.t.location(0, 0 + row):
+                print(' ' * self.t.width, end='')
+
     def draw_border(self):
         t = self.t
         c = self.c
@@ -64,7 +73,6 @@ class Engine:
         for i in range(c.h):
             print(t.move_xy(c.x - 1, c.y + i) + middle)
         print(t.move_xy(c.x - 1, c.y + c.h) + bottom, end='', flush=True)
-        print(t.normal)
 
     def typewrite(self, text, x, y, delay=0.05, col=None):
         t = self.t
@@ -137,5 +145,5 @@ class Engine:
             (self.t.width - W) // 2 + 1, (self.t.height - H) // 2 + 1
         )
         self.assets = self.load_assets()
-        print(self.t.clear + self.t.home)
+        self.set_theme("lightgray", "gray4")
         self.draw_border()

@@ -5,40 +5,98 @@ import time
 def scene(en: Engine):
     time.sleep(4)
 
-    l1 = 'Rise, you! Rise,'
-    x1, y1 = en.c.cx - len(l1) // 2, en.c.cy - 3
-    l2 = 'for The Butterfly.'
-    x2, y2 = en.c.cx - len(l2) // 2, en.c.cy - 2
+    llen = max(len(line) for line in en.assets['dawn00'].splitlines())
 
-    en.typewrite(l1, x1, y1, 0.075, en.t.italic_gray50)
-    time.sleep(1)
-    en.typewrite(l2, x2, y2, 0.075, en.t.italic_gray50)
+    en.typewrite(
+        en.assets['dawn00'],
+        en.c.cx - llen // 2,
+        en.c.cy - 3,
+        0.075,
+        en.t.italic_gray50,
+    )
 
     time.sleep(2.5)
 
-    en.typewrite(l1, x1, y1, 0.02, en.t.black)
-    en.typewrite(l2, x2, y2, 0.02, en.t.black)
+    en.typewrite(
+        en.assets['dawn00'],
+        en.c.cx - llen // 2,
+        en.c.cy - 3,
+        0.02,
+        en.bg,
+    )
 
     time.sleep(3.5)
 
     lines = en.assets['rise'].splitlines()
     for i, line in enumerate(lines):
-        en.typewrite(line, en.c.cx - len(line) // 2, en.c.cy - len(lines) // 2 + i - 2, 0.075)
+        en.typewrite(
+            line, en.c.cx - len(line) // 2, en.c.cy - len(lines) // 2 + i - 2
+        )
         time.sleep(0.10)
+
+    time.sleep(1)
+
+    en.scene_pause()
+
+    # -------------------------
+    x = en.c.cx - 26
+    y = en.c.cy - 6
+
+    en.clear_canvas()
 
     time.sleep(2)
 
-    ellip = '. . .'
+    en.typewrite(en.assets['dawn01'], x, y)
 
-    x, y = en.c.coords(en.c.w // 2 - len(ellip) // 2, en.c.h - 2)
-    en.typewrite(ellip, x, y, 0.05, en.t.italic_gray40)
+    time.sleep(3)
 
-    en.clear_input()
-    while True:
-        key = en.t.inkey().lower()
-        if key:
-            break
+    # en.clear_canvas()
+    en.typewrite(en.assets['dawn01'], x, y, 0.01, en.bg)
 
-    # -------------------------
+    time.sleep(2)
 
+    en.typewrite(
+        en.assets['dawn02'],
+        en.c.cx - len(en.assets['dawn02']) // 2,
+        en.c.cy - 3,
+        0.15,
+        en.t.italic_gray40,
+    )
 
+    time.sleep(0.5)
+
+    en.scene_pause()
+
+    en.clear_canvas()
+
+    time.sleep(1.5)
+
+    en.typewrite(en.assets['dawn03'], x, y)
+
+    time.sleep(2)
+
+    en.typewrite(en.assets['dawn03'], x, y, 0.005, en.bg)
+
+    time.sleep(1)
+
+    lines = en.assets['dawn04'].splitlines()
+    for i, line in enumerate(lines):
+        en.typewrite(line, x, y + i)
+        if line == '\n':
+            time.sleep(0.5)
+        else:
+            time.sleep(0.10)
+
+    time.sleep(2)
+    en.clear_canvas()
+    time.sleep(2)
+
+    en.typewrite(
+        en.assets['dawn05'],
+        en.c.cx - len(en.assets['dawn05']) // 2,
+        en.c.cy - 3,
+        0.15,
+        en.t.italic_gray40,
+    )
+
+    en.scene_pause()

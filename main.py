@@ -15,7 +15,7 @@ def main():
     ):
         en = Engine(t)
 
-        scene = '00-title'
+        scene = '02-dawn'
         while True:
             scene = scenes[scene](en)
             if not scene:

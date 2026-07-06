@@ -1,3 +1,4 @@
+import sys
 import time
 from engine import Engine
 from blessed import Terminal
@@ -15,7 +16,7 @@ def main():
     ):
         en = Engine(t)
 
-        scene = '02-dawn'
+        scene = sys.argv[1] if len(sys.argv) > 1 else '00-title'
         while True:
             scene = scenes[scene](en)
             if not scene:

@@ -111,6 +111,18 @@ class Engine:
             while self.t.inkey(timeout=0):
                 pass
 
+    def scene_pause(self):
+        ellip = ". . ."
+
+        ex, ey = self.c.coords(self.c.w // 2 - len(ellip) // 2, self.c.h - 2)
+        self.typewrite(ellip, ex, ey, 0.04, self.t.italic_gray40)
+
+        self.clear_input()
+        while True:
+            key = self.t.inkey().lower()
+            if key:
+                break
+
     def load_assets(self):
         # with open('scenes/assets.txt') as f:
         #     parts = re.split(r'^\[(\w+)\]$', f.read(), flags=re.MULTILINE)

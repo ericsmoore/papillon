@@ -29,7 +29,7 @@ class Engine:
         print(f'\033[8;{min_h};{min_w}t')  # auto-resizes (some emulators)
         time.sleep(0.25)
 
-        if (t.height >= min_h and t.width >= min_w):
+        if t.height >= min_h and t.width >= min_w:
             return
 
         print('Please resize to 100x34')
@@ -77,7 +77,7 @@ class Engine:
                 for ch in lines[line]:
                     print(ch, end='', flush=True)
                     if ch in ',.?!:;':
-                        time.sleep(delay*2.5)
+                        time.sleep(delay * 2.5)
                     elif not ch.isspace():
                         time.sleep(delay)
 
@@ -112,7 +112,7 @@ class Engine:
                 pass
 
     def scene_pause(self):
-        ellip = ". . ."
+        ellip = '. . .'
 
         ex, ey = self.c.coords(self.c.w // 2 - len(ellip) // 2, self.c.h - 2)
         self.typewrite(ellip, ex, ey, 0.04, self.t.italic_gray40)
@@ -124,20 +124,11 @@ class Engine:
                 break
 
     def load_assets(self):
-        # with open('scenes/assets.txt') as f:
-        #     parts = re.split(r'^\[(\w+)\]$', f.read(), flags=re.MULTILINE)
-        # return {
-        #     parts[i]: parts[i + 1].strip('\n')
-        #     for i in range(1, len(parts) - 1, 2)
-        # }
-            
         assets = {
-            p.stem: p.read_text()
-            for p in Path('scenes/assets').rglob('*.txt')
-        }    
+            p.stem: p.read_text() for p in Path('scenes/assets').rglob('*.txt')
+        }
 
         return assets
-        
 
     def __init__(self, term):
         self.t = term

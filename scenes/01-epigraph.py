@@ -32,7 +32,7 @@ def scene(en: Engine):
     en.typewrite(opt, x, y, 0.05, en.t.italic_gray30)
 
     en.clear_input()
-    while (True):
+    while True:
         key = en.t.inkey().lower()
         if key == 'q':
             return None

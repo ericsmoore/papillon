@@ -1,12 +1,13 @@
 from engine import Engine
 import time
 
+
 def scene(en: Engine):
     time.sleep(4)
 
-    l1 = "Rise, you! Rise,"
+    l1 = 'Rise, you! Rise,'
     x1, y1 = en.c.cx - len(l1) // 2, en.c.cy - 3
-    l2 = "for The Butterfly."
+    l2 = 'for The Butterfly.'
     x2, y2 = en.c.cx - len(l2) // 2, en.c.cy - 2
 
     en.typewrite(l1, x1, y1, 0.075, en.t.italic_gray50)

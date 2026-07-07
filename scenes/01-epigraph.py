@@ -7,9 +7,9 @@ def scene(en: Engine):
 
     x, y = en.c.coords(22, 7)
 
-    en.typewrite(en.assets['lamartine'], x, y, 0.015, en.t.gray25)
+    en.typewrite(en.assets['lamartine'], x, y, 0.0075, en.t.gray25)
     time.sleep(2)
-    en.typewrite(en.assets['lamartine_t'], x, y, 0.065)
+    en.typewrite(en.assets['lamartine_t'], x, y)
 
     time.sleep(1)
     en.typewrite(
@@ -20,14 +20,14 @@ def scene(en: Engine):
         en.t.gray50,
     )
 
-    time.sleep(1.5)
+    time.sleep(2)
 
     ellip = '. . .'
     opt = 'PRESS ANY KEY'
 
     x, y = en.c.coords(en.c.w // 2 - len(ellip) // 2, en.c.h - 2)
     en.typewrite(ellip, x, y, 0.05, en.t.italic_gray30)
-    time.sleep(2)
+    time.sleep(0.5)
     x, y = en.c.coords(en.c.w // 2 - len(opt) // 2, en.c.h - 3)
     en.typewrite(opt, x, y, 0.05, en.t.italic_gray30)
 

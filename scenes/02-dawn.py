@@ -3,7 +3,7 @@ import time
 
 
 def scene(en: Engine):
-    time.sleep(4)
+    time.sleep(3)
 
     llen = max(len(line) for line in en.assets['dawn00'].splitlines())
 
@@ -24,6 +24,7 @@ def scene(en: Engine):
         0.02,
         en.bg,
     )
+    en.clear_canvas()
 
     time.sleep(3.5)
 
@@ -48,10 +49,10 @@ def scene(en: Engine):
 
     en.typewrite(en.assets['dawn01'], x, y)
 
-    time.sleep(3)
+    time.sleep(1)
 
-    # en.clear_canvas()
     en.typewrite(en.assets['dawn01'], x, y, 0.01, en.bg)
+    en.clear_canvas()
 
     time.sleep(2)
 
@@ -63,19 +64,19 @@ def scene(en: Engine):
         en.t.italic_gray40,
     )
 
-    time.sleep(0.5)
+    time.sleep(1)
 
     en.scene_pause()
-
     en.clear_canvas()
 
     time.sleep(1.5)
 
     en.typewrite(en.assets['dawn03'], x, y)
 
-    time.sleep(2)
+    time.sleep(1.5)
 
-    en.typewrite(en.assets['dawn03'], x, y, 0.005, en.bg)
+    en.typewrite(en.assets['dawn03'], x, y, 0.003, en.bg)
+    en.clear_canvas()
 
     time.sleep(1)
 
@@ -98,5 +99,21 @@ def scene(en: Engine):
         0.15,
         en.t.italic_gray40,
     )
+
+    time.sleep(1.5)
+
+    en.scene_pause()
+
+    en.clear_canvas()
+
+    time.sleep(4)
+
+    lines = en.assets['dawn06'].splitlines()
+    for i, line in enumerate(lines):
+        en.typewrite(line, x, y + i)
+        if line == '\n':
+            time.sleep(2)
+
+    time.sleep(1)
 
     en.scene_pause()

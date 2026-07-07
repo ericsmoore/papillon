@@ -36,10 +36,9 @@ def scene(en: Engine):
     c2 = en.c.coords(xpos(opts[1], 2), y)
     en.typewrite(opts[1], c2[0], c2[1], 0.05, en.t.italic_gray30)
 
-    en.clear_input()
     while True:
-        key = en.t.inkey().lower()
+        key = en.get_input()
         if key == 'q':
             return None
-        if key == 'e':
+        elif key == 'e':
             return '01-epigraph'

@@ -125,11 +125,16 @@ class Engine:
         ex, ey = self.c.coords(self.c.w // 2 - len(ellip) // 2, self.c.h - 2)
         self.typewrite(ellip, ex, ey, 0.04, self.t.italic_gray40)
 
+        return self.get_input()
+
+
+    def get_input(self):
         self.clear_input()
         while True:
             key = self.t.inkey().lower()
             if key:
-                break
+                time.sleep(0.25)
+                return key
 
     def load_assets(self):
         assets = {

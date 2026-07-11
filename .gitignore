@@ -10,6 +10,5 @@ wheels/
 .venv
 
 # -----
-notes.txt
-papillon.txt
+notes/
 .DS_Store

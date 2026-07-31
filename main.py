@@ -16,7 +16,7 @@ def main():
     ):
         en = Engine(t)
 
-        scene = sys.argv[1] if len(sys.argv) > 1 else '00-title'
+        scene = sys.argv[1] if len(sys.argv) > 1 else 'title'
         while True:
             scene = scenes[scene](en)
             if not scene:

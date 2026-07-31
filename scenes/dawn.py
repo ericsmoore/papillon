@@ -172,7 +172,7 @@ def scene(en: Engine):
             time.sleep(1)
 
             en.scene_pause()
-            return '03-wander'
+            return 'wander'
         elif key == 'w':
             time.sleep(0.25)
             en.clear_canvas()
@@ -206,4 +206,4 @@ def scene(en: Engine):
             time.sleep(1)
 
             en.scene_pause()
-            return '03-path'
+            return 'path'

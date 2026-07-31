@@ -41,4 +41,4 @@ def scene(en: Engine):
         if key == 'q':
             return None
         elif key == 'e':
-            return '01-epigraph'
+            return 'epigraph'

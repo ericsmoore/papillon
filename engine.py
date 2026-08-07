@@ -129,7 +129,6 @@ class Engine:
 
         return self.get_input()
 
-
     def get_input(self):
         self.clear_input()
         while True:
@@ -152,5 +151,45 @@ class Engine:
             (self.t.width - W) // 2 + 1, (self.t.height - H) // 2 + 1
         )
         self.assets = self.load_assets()
-        self.set_theme("lightgray", "gray4")
+        self.set_theme('lightgray', 'gray4')
         self.draw_border()
+
+    def write(self, text, color=None, ch_delay=0.05, ln_delay=0):
+        lines = text.splitlines()
+        llen = max(len(line) for line in lines)
+        for i, line in enumerate(lines):
+            self.typewrite(
+                line,
+                self.c.cx - llen // 2,
+                self.c.cy - len(lines) // 2 + i - 3,
+                ch_delay,
+                color,
+            )
+            if line == '':
+                time.sleep(0.5)
+            else:
+                time.sleep(ln_delay)
+
+    def write_verse(self, text, color, ch_delay, ln_delay):
+        lines = text.splitlines()
+        for i, line in enumerate(lines):
+            self.typewrite(
+                line,
+                self.c.cx - len(line) // 2,
+                self.c.cy - len(lines) // 2 + i - 3,
+                ch_delay,
+                color,
+            )
+            time.sleep(ln_delay)
+
+    def write_choices(self, opts, gap=12):
+        y = 2 * self.c.h // 3
+
+        total = sum(len(o) for o in opts) + gap * (len(opts) - 1)
+        x = (self.c.w - total) // 2
+
+        for opt in opts:
+            coords = self.c.coords(x, y)
+            self.typewrite(opt, coords[0], coords[1], 0.05, self.t.italic_gray30)
+            x += len(opt) + gap
+            time.sleep(0.5)

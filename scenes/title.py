@@ -1,5 +1,6 @@
-from engine import Engine
 import time
+
+from engine import Engine
 
 
 def scene(en: Engine):
@@ -21,20 +22,7 @@ def scene(en: Engine):
     )
     time.sleep(2)
 
-    opts = ['ENTER - E', 'QUIT - Q']
-
-    y = 2 * en.c.h // 3
-
-    def xpos(o, i):
-        return i * (en.c.w // 3) - len(o) // 2
-
-    c1 = en.c.coords(xpos(opts[0], 1), y)
-    en.typewrite(opts[0], c1[0], c1[1], 0.05, en.t.italic_gray30)
-
-    time.sleep(0.5)
-
-    c2 = en.c.coords(xpos(opts[1], 2), y)
-    en.typewrite(opts[1], c2[0], c2[1], 0.05, en.t.italic_gray30)
+    en.write_choices(['ENTER - E', 'QUIT - Q'])
 
     while True:
         key = en.get_input()

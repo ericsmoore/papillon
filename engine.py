@@ -84,7 +84,9 @@ class Engine:
                 print(col, end='', flush=True)
                 for ch in lines[line]:
                     print(ch, end='', flush=True)
-                    if ch in ',.?!:;':
+                    if ch in '.?!:;':
+                        time.sleep(delay * 4)
+                    if ch == ',':
                         time.sleep(delay * 2.5)
                     elif not ch.isspace():
                         time.sleep(delay)

@@ -68,3 +68,4 @@ for md_file in md_output.glob('*.md'):
     )
 
 shutil.copy2(src / 'style.css', site_output / 'style.css')
+shutil.copytree(src / 'fonts', site_output / 'fonts', dirs_exist_ok=True)

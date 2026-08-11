@@ -94,7 +94,7 @@ a {
 
 .choice ul {
   list-style-type: none;
-  margin: 2rem 0 0 0;
+  margin: 2rem 0 2rem 0;
   padding: 0;
   display: flex;
   flex-direction: row;

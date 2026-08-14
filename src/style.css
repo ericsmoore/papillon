@@ -74,13 +74,22 @@ a {
   text-underline-offset:  0.1em;
 }
 
-.title p {
-  font-size: 24px;
+.title {
+  font-size: 3rem;
   text-align: center;
+  letter-spacing: 0.1em;
+}
+
+.title a {
+  text-decoration: none;
 }
 
 .center {
   text-align: center;
+}
+
+.right {
+  text-align: right;
 }
 
 .br {
